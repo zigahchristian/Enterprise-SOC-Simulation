@@ -150,7 +150,7 @@ This project is organized into **14 phases**, following a complete security oper
 | Asset | Owner | Criticality |
 |-------|-------|-------------|
 | Payroll Server | Finance | 🔴 High |
-| Employee Database | HR | 🔴 High |
+| SQL Database | HR | 🔴 High |
 | Website | IT | 🟡 Medium |
 | Email Server | IT | 🔴 High |
 
@@ -261,17 +261,87 @@ SELECT * FROM alerts WHERE severity='High';
 
 ```text
 Enterprise-SOC-Simulation/
-├── README.md
-├── LICENSE
-├── documentation/
-├── diagrams/
-├── screenshots/
-├── logs/
-├── pcap/
-├── python/
-├── sql/
-├── reports/
-└── presentation/
+│   .gitignore
+│   index.html
+│   LICENSE
+│   README.md
+│   
+├───assets
+│   ├───payroll
+│   │   │   payroll_api.py
+│   │   │   payroll_system.py
+│   │   │   requirements.txt
+│   │   │   
+│   │   ├───db
+│   │   │       payroll.db
+│   │   │       
+│   │   ├───logs
+│   │   │       payroll.log
+│   │   │       payroll_errors.log
+│   │   │       
+│   │   └───web
+│   │           payroll.html
+│   │           
+│   ├───sql
+│   │       abc.db
+│   │       customers.sql
+│   │       employees.sql
+│   │       finaces.sql
+│   │       
+│   └───web
+│       │   .env
+│       │   package-lock.json
+│       │   package.json
+│       │   server.js
+│       │   
+│       ├───db
+│       │       error.log
+│       │       server.log
+│       │       
+│       ├───middleware
+│       │       auth.js
+│       │       
+│       ├───prisma
+│       │   │   schema.prisma
+│       │   │   
+│       │   └───db
+│       │           abc.db
+│       │           
+│       ├───public
+│       │       dashboard.html
+│       │       index.html
+│       │       login.html
+│       │       
+│       ├───routes
+│       │       auth.js
+│       │       protected.js
+│       │       
+│       └───utils
+│               logger.js
+│               prisma.js
+│               prismaSessionStore.js
+│               
+├───diagrams
+├───documentation
+├───logs
+├───pcap
+├───presentation
+├───python
+├───reports
+└───screenshots
+    ├───assets
+    │       employee_login.jpg
+    │       error_login.jpg
+    │       hompage.jpg
+    │       payroll.jpg
+    │       payroll2.jpg
+    │       payroll3.jpg
+    │       success_login.jpg
+    │       
+    ├───linux
+    ├───splunk
+    ├───suricata
+    └───wireshark
 ```
 
 ---
