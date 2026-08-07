@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payroll · ABC Technologies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'abc-dark': '#0b1120',
+                        'abc-card': '#131c2e',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #0b1120; color: #e2e8f0; min-height: 100vh; }
+        .card { background: #131c2e; border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 1.5rem; }
+        .input-focus:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.15); outline: none; }
+        .tab-active { border-bottom: 2px solid #4f46e5; color: #e2e8f0; }
+        .tab-inactive { color: #94a3b8; border-bottom: 2px solid transparent; }
+        .tab-inactive:hover { color: #e2e8f0; border-bottom: 2px solid rgba(79,70,229,0.3); }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                <span class="text-indigo-400 font-extrabold text-sm">ABC</span>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Payroll Management</h1>
+            <span class="text-xs text-indigo-300 bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">API v1.0</span>
+        </div>
+        <div class="text-sm text-slate-400 bg-[#0b1120] px-3 py-1.5 rounded-full border border-white/5">
+            API Key: <span id="apiKeyDisplay" class="font-mono text-slate-300">your-secret-key</span>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap gap-1 border-b border-white/5 mb-6 overflow-x-auto">
+        <button class="tab-btn px-4 py-2 text-sm font-medium transition-colors tab-active" data-tab="employees">👥 Employees</button>
+        <button class="tab-btn px-4 py-2 text-sm font-medium transition-colors tab-inactive" data-tab="salary">💰 Salary</button>
+        <button class="tab-btn px-4 py-2 text-sm font-medium transition-colors tab-inactive" data-tab="timesheet">📅 Timesheet</button>
+        <button class="tab-btn px-4 py-2 text-sm font-medium transition-colors tab-inactive" data-tab="payroll">⚡ Payroll</button>
+        <button class="tab-btn px-4 py-2 text-sm font-medium transition-colors tab-inactive" data-tab="payslip">📄 Payslip</button>
+        <button class="tab-btn px-4 py-2 text-sm font-medium transition-colors tab-inactive" data-tab="report">📊 Report</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div id="tabContent">
+        <!-- Employees -->
+        <div id="tab-employees" class="tab-pane">
+            <div class="card">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h2 class="text-lg font-semibold text-white">Employee List</h2>
+                    <button onclick="fetchEmployees()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-4 py-2 rounded-lg transition-colors">🔄 Refresh</button>
+                </div>
+                <div id="employeeList" class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="text-slate-400 border-b border-white/5">
+                            <tr><th class="py-2 text-left">ID</th><th class="py-2 text-left">Name</th><th class="py-2 text-left">Email</th><th class="py-2 text-left">Job Title</th></tr>
+                        </thead>
+                        <tbody id="employeeTableBody">
+                            <tr><td colspan="4" class="py-4 text-slate-400 text-center">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Salary -->
+        <div id="tab-salary" class="tab-pane hidden">
+            <div class="card max-w-md">
+                <h2 class="text-lg font-semibold text-white mb-4">Set Salary Structure</h2>
+                <form id="salaryForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Employee ID</label>
+                        <input type="number" id="salaryEmpId" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Salary Type</label>
+                        <select id="salaryType" class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus">
+                            <option value="Annual">Annual</option>
+                            <option value="Hourly">Hourly</option>
+                        </select>
+                    </div>
+                    <div id="annualField">
+                        <label class="block text-sm text-slate-300 mb-1">Annual Salary</label>
+                        <input type="number" step="0.01" id="annualSalary" class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div id="hourlyField" class="hidden">
+                        <label class="block text-sm text-slate-300 mb-1">Hourly Rate</label>
+                        <input type="number" step="0.01" id="hourlyRate" class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Overtime Rate</label>
+                        <input type="number" step="0.01" id="overtimeRate" value="0" class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Effective Date</label>
+                        <input type="date" id="effectiveDate" class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg transition-colors">Set Salary</button>
+                </form>
+                <div id="salaryResult" class="mt-4 text-sm"></div>
+            </div>
+        </div>
+
+        <!-- Timesheet -->
+        <div id="tab-timesheet" class="tab-pane hidden">
+            <div class="card max-w-md">
+                <h2 class="text-lg font-semibold text-white mb-4">Import Timesheet</h2>
+                <form id="timesheetForm" enctype="multipart/form-data" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Employee ID</label>
+                        <input type="number" id="tsEmpId" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">CSV File</label>
+                        <input type="file" id="tsFile" accept=".csv" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                        <p class="text-xs text-slate-500 mt-1">Format: date,hours,is_overtime (0/1)</p>
+                    </div>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg transition-colors">Upload</button>
+                </form>
+                <div id="tsResult" class="mt-4 text-sm"></div>
+            </div>
+        </div>
+
+        <!-- Payroll -->
+        <div id="tab-payroll" class="tab-pane hidden">
+            <div class="card max-w-md">
+                <h2 class="text-lg font-semibold text-white mb-4">Process Payroll</h2>
+                <form id="payrollForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Employee ID</label>
+                        <input type="number" id="payEmpId" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Start Date</label>
+                        <input type="date" id="payStart" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">End Date</label>
+                        <input type="date" id="payEnd" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Bonus</label>
+                        <input type="number" step="0.01" id="bonus" value="0" class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg transition-colors">Process</button>
+                </form>
+                <div id="payrollResult" class="mt-4 text-sm"></div>
+            </div>
+        </div>
+
+        <!-- Payslip -->
+        <div id="tab-payslip" class="tab-pane hidden">
+            <div class="card max-w-md">
+                <h2 class="text-lg font-semibold text-white mb-4">View Payslip</h2>
+                <form id="payslipForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Employee ID</label>
+                        <input type="number" id="psEmpId" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Payroll ID</label>
+                        <input type="number" id="psPayId" required class="w-full bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg transition-colors">Get Payslip</button>
+                </form>
+                <div id="payslipResult" class="mt-4 text-sm"></div>
+            </div>
+        </div>
+
+        <!-- Report -->
+        <div id="tab-report" class="tab-pane hidden">
+            <div class="card">
+                <h2 class="text-lg font-semibold text-white mb-4">Payroll Report</h2>
+                <form id="reportForm" class="flex flex-wrap gap-4 items-end">
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">Start Date</label>
+                        <input type="date" id="repStart" required class="bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-1">End Date</label>
+                        <input type="date" id="repEnd" required class="bg-[#0b1120] border border-white/10 rounded-lg px-4 py-2 text-white input-focus" />
+                    </div>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-lg transition-colors">Generate Report</button>
+                </form>
+                <div id="reportResult" class="mt-4 text-sm overflow-x-auto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // Configuration
+    // ============================================
+    const API_BASE = 'http://localhost:8001/api';
+    const API_KEY = 'your-secret-key';
+
+    // ============================================
+    // Helper: API fetch with auth header
+    // ============================================
+    async function apiFetch(endpoint, options = {}) {
+        const url = `${API_BASE}${endpoint}`;
+        const headers = {
+            'X-API-Key': API_KEY,
+            ...options.headers
+        };
+        if (!(options.body instanceof FormData)) {
+            headers['Content-Type'] = 'application/json';
+        }
+        const response = await fetch(url, { ...options, headers });
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.detail || `HTTP ${response.status}`);
+        }
+        return response.json();
+    }
+
+    // ============================================
+    // Tabs
+    // ============================================
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = {
+        employees: document.getElementById('tab-employees'),
+        salary: document.getElementById('tab-salary'),
+        timesheet: document.getElementById('tab-timesheet'),
+        payroll: document.getElementById('tab-payroll'),
+        payslip: document.getElementById('tab-payslip'),
+        report: document.getElementById('tab-report'),
+    };
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => { b.classList.remove('tab-active'); b.classList.add('tab-inactive'); });
+            btn.classList.remove('tab-inactive');
+            btn.classList.add('tab-active');
+            Object.values(tabPanes).forEach(p => p.classList.add('hidden'));
+            const tab = btn.dataset.tab;
+            if (tabPanes[tab]) tabPanes[tab].classList.remove('hidden');
+        });
+    });
+
+    // ============================================
+    // 1. Employees
+    // ============================================
+    async function fetchEmployees() {
+        try {
+            const data = await apiFetch('/employees');
+            const tbody = document.getElementById('employeeTableBody');
+            tbody.innerHTML = '';
+            if (data.employees && data.employees.length) {
+                data.employees.forEach(emp => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'border-b border-white/5';
+                    tr.innerHTML = `
+                        <td class="py-2 px-1">${emp.id}</td>
+                        <td class="py-2 px-1">${emp.first_name} ${emp.last_name}</td>
+                        <td class="py-2 px-1">${emp.email}</td>
+                        <td class="py-2 px-1">${emp.job_title || '-'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="4" class="py-4 text-slate-400 text-center">No employees found.</td></tr>';
+            }
+        } catch (err) {
+            document.getElementById('employeeTableBody').innerHTML = `<tr><td colspan="4" class="py-4 text-red-400 text-center">Error: ${err.message}</td></tr>`;
+        }
+    }
+    fetchEmployees();
+
+    // ============================================
+    // 2. Salary
+    // ============================================
+    document.getElementById('salaryForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const empId = parseInt(document.getElementById('salaryEmpId').value);
+        const salaryType = document.getElementById('salaryType').value;
+        const annual = parseFloat(document.getElementById('annualSalary').value);
+        const hourly = parseFloat(document.getElementById('hourlyRate').value);
+        const overtime = parseFloat(document.getElementById('overtimeRate').value) || 0;
+        const effective = document.getElementById('effectiveDate').value || undefined;
+
+        const payload = {
+            employee_id: empId,
+            salary_type: salaryType,
+            annual_salary: salaryType === 'Annual' ? annual : null,
+            hourly_rate: salaryType === 'Hourly' ? hourly : null,
+            overtime_rate: overtime || 0,
+            effective_date: effective || undefined  // Send undefined if empty
+        };
+
+        try {
+            const result = await apiFetch('/salary', { method: 'POST', body: JSON.stringify(payload) });
+            document.getElementById('salaryResult').innerHTML = `<span class="text-emerald-400">✅ ${result.message}</span>`;
+        } catch (err) {
+            document.getElementById('salaryResult').innerHTML = `<span class="text-red-400">❌ ${err.message}</span>`;
+        }
+    });
+
+    document.getElementById('salaryType').addEventListener('change', function() {
+        if (this.value === 'Annual') {
+            document.getElementById('annualField').classList.remove('hidden');
+            document.getElementById('hourlyField').classList.add('hidden');
+        } else {
+            document.getElementById('annualField').classList.add('hidden');
+            document.getElementById('hourlyField').classList.remove('hidden');
+        }
+    });
+
+    // ============================================
+    // 3. Timesheet
+    // ============================================
+    document.getElementById('timesheetForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const empId = parseInt(document.getElementById('tsEmpId').value);
+        const fileInput = document.getElementById('tsFile');
+        if (!fileInput.files.length) {
+            document.getElementById('tsResult').innerHTML = `<span class="text-red-400">Please select a CSV file.</span>`;
+            return;
+        }
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('employee_id', empId);
+        formData.append('file', file);
+
+        try {
+            const response = await fetch(`${API_BASE}/timesheet/import`, {
+                method: 'POST',
+                headers: { 'X-API-Key': API_KEY },
+                body: formData
+            });
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({}));
+                throw new Error(err.detail || `HTTP ${response.status}`);
+            }
+            const result = await response.json();
+            document.getElementById('tsResult').innerHTML = `<span class="text-emerald-400">✅ ${result.message}</span>`;
+        } catch (err) {
+            document.getElementById('tsResult').innerHTML = `<span class="text-red-400">❌ ${err.message}</span>`;
+        }
+    });
+
+    // ============================================
+    // 4. Payroll
+    // ============================================
+    document.getElementById('payrollForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const empId = parseInt(document.getElementById('payEmpId').value);
+        const start = document.getElementById('payStart').value;
+        const end = document.getElementById('payEnd').value;
+        const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+
+        const payload = {
+            employee_id: empId,
+            pay_period_start: start,
+            pay_period_end: end,
+            bonus: bonus
+        };
+
+        try {
+            const result = await apiFetch('/payroll/process', { method: 'POST', body: JSON.stringify(payload) });
+            const details = result.details || {};
+            document.getElementById('payrollResult').innerHTML = `
+                <div class="bg-[#0b1120] p-3 rounded-lg border border-white/5 text-sm">
+                    <p><span class="text-emerald-400">✅</span> ${result.details ? 'Payroll processed' : 'Success'}</p>
+                    <p><strong>Payroll ID:</strong> ${result.payroll_id || 'N/A'}</p>
+                    <p><strong>Gross Pay:</strong> $${(details.gross_pay || 0).toFixed(2)}</p>
+                    <p><strong>Net Pay:</strong> $${(details.net_pay || 0).toFixed(2)}</p>
+                </div>
+            `;
+        } catch (err) {
+            document.getElementById('payrollResult').innerHTML = `<span class="text-red-400">❌ ${err.message}</span>`;
+        }
+    });
+
+    // ============================================
+    // 5. Payslip
+    // ============================================
+    document.getElementById('payslipForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const empId = parseInt(document.getElementById('psEmpId').value);
+        const payId = parseInt(document.getElementById('psPayId').value);
+
+        try {
+            const data = await apiFetch(`/payslip/${empId}/${payId}`);
+            document.getElementById('payslipResult').innerHTML = `
+                <div class="bg-[#0b1120] p-4 rounded-lg border border-white/5 text-sm">
+                    <p><strong>Payroll ID:</strong> ${data.payroll_id}</p>
+                    <p><strong>Employee:</strong> ${data.employee_id}</p>
+                    <p><strong>Period:</strong> ${data.pay_period_start} → ${data.pay_period_end}</p>
+                    <hr class="border-white/5 my-2" />
+                    <p><strong>Gross Pay:</strong> $${data.gross_pay.toFixed(2)}</p>
+                    <p><strong>Tax Withheld:</strong> $${data.tax_withheld.toFixed(2)}</p>
+                    <p><strong>Pension:</strong> $${data.pension_contribution.toFixed(2)}</p>
+                    <p><strong>Health Insurance:</strong> $${data.health_insurance.toFixed(2)}</p>
+                    <hr class="border-white/5 my-2" />
+                    <p class="font-bold text-emerald-400"><strong>Net Pay:</strong> $${data.net_pay.toFixed(2)}</p>
+                </div>
+            `;
+        } catch (err) {
+            document.getElementById('payslipResult').innerHTML = `<span class="text-red-400">❌ ${err.message}</span>`;
+        }
+    });
+
+    // ============================================
+    // 6. Report
+    // ============================================
+    document.getElementById('reportForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const start = document.getElementById('repStart').value;
+        const end = document.getElementById('repEnd').value;
+
+        try {
+            const data = await apiFetch(`/report?pay_period_start=${start}&pay_period_end=${end}`);
+            const report = data.report || [];
+            let html = '';
+            if (report.length) {
+                html = `<table class="w-full text-sm"><thead class="text-slate-400 border-b border-white/5"><tr>
+                    <th class="py-2 text-left">ID</th><th class="py-2 text-left">Name</th>
+                    <th class="py-2 text-right">Hours</th><th class="py-2 text-right">Gross</th>
+                    <th class="py-2 text-right">Tax</th><th class="py-2 text-right">Net</th>
+                </tr></thead><tbody>`;
+                report.forEach(r => {
+                    html += `<tr class="border-b border-white/5">
+                        <td class="py-2">${r.employee_id}</td>
+                        <td class="py-2">${r.first_name} ${r.last_name}</td>
+                        <td class="py-2 text-right">${(r.hours_worked || 0).toFixed(1)}</td>
+                        <td class="py-2 text-right">$${r.gross_pay.toFixed(2)}</td>
+                        <td class="py-2 text-right">$${r.tax_withheld.toFixed(2)}</td>
+                        <td class="py-2 text-right font-medium text-emerald-400">$${r.net_pay.toFixed(2)}</td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+            } else {
+                html = '<p class="text-slate-400">No payroll records for this period.</p>';
+            }
+            document.getElementById('reportResult').innerHTML = html;
+        } catch (err) {
+            document.getElementById('reportResult').innerHTML = `<span class="text-red-400">❌ ${err.message}</span>`;
+        }
+    });
+
+    // ============================================
+    // Initialize: Set default dates
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        const firstDay = new Date();
+        firstDay.setDate(1);
+        const firstDayStr = firstDay.toISOString().split('T')[0];
+        
+        document.getElementById('effectiveDate').value = today;
+        document.getElementById('payStart').value = firstDayStr;
+        document.getElementById('payEnd').value = today;
+        document.getElementById('repStart').value = firstDayStr;
+        document.getElementById('repEnd').value = today;
+        document.getElementById('apiKeyDisplay').textContent = API_KEY;
+    });
+</script>
+</body>
+</html>

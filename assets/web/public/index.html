@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABC Technologies · Enterprise Security</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap');
+
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .gradient-nav {
+            background: linear-gradient(135deg, #0b1120 0%, #1a2639 100%);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(ellipse at 50% 0%, #1a2639 0%, #0b1120 70%);
+        }
+
+        .card-glow {
+            transition: all 0.3s ease;
+        }
+        .card-glow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -12px rgba(79, 70, 229, 0.25);
+        }
+
+        .badge-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .login-bg {
+            background: radial-gradient(ellipse at 70% 30%, #1e293b 0%, #0b1120 100%);
+        }
+
+        .input-focus {
+            transition: all 0.2s ease;
+        }
+        .input-focus:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+            outline: none;
+        }
+
+        .slide-in {
+            animation: slideUp 0.6s ease forwards;
+        }
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1120;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 8px;
+        }
+
+        .pill-tag {
+            background: rgba(79, 70, 229, 0.12);
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            color: #c7d2fe;
+            padding: 0.2rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!--  NAVIGATION  -->
+    <!-- ============================================================ -->
+    <nav class="gradient-nav border-b border-white/5 fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                        <span class="text-indigo-400 font-extrabold text-sm">ABC</span>
+                    </div>
+                    <span class="text-white font-bold text-lg tracking-tight">ABC Technologies</span>
+                    <span class="hidden md:inline-block text-[10px] font-mono text-indigo-300 bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">SECURE</span>
+                </div>
+
+                <!-- Nav Links -->
+                <div class="hidden md:flex items-center gap-8 text-sm">
+                    <a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#services" class="text-slate-300 hover:text-white transition-colors">Services</a>
+                    <a href="#contact" class="text-slate-300 hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Login Button -->
+                <div class="flex items-center gap-3">
+                   
+                    <button onclick="showLoginModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-600/20 border border-indigo-400/30">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                            <a href="/login.html">Employee Login</a>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!--  HERO SECTION  -->
+    <!-- ============================================================ -->
+    <section id="home" class="hero-gradient pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in">
+                    <div class="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-300 text-xs font-semibold px-4 py-1.5 rounded-full border border-indigo-500/20 mb-5">
+                        <span class="w-2 h-2 rounded-full bg-green-400 badge-pulse"></span>
+                        <span>Secure · Reliable · Enterprise</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                        Protecting <br />
+                        <span class="text-indigo-400">Your Digital</span> Future
+                    </h1>
+                    <p class="mt-4 text-slate-300 text-lg max-w-lg leading-relaxed">
+                        ABC Technologies delivers enterprise-grade cybersecurity solutions,
+                        threat intelligence, and managed security services to organizations
+                        across Ghana and beyond.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        <a href="#services" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 border border-indigo-400/30">
+                            Explore Services
+                        </a>
+                        <a href="#about" class="border border-white/10 hover:border-white/30 text-slate-300 hover:text-white font-medium px-6 py-3 rounded-xl transition-all">
+                            Learn More →
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-6 mt-8 text-sm text-slate-400">
+                        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 24/7 Monitoring</span>
+                        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SOC Certified</span>
+                        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> NIST Compliant</span>
+                    </div>
+                </div>
+
+                <!-- Hero Stats / Cards -->
+                <div class="grid grid-cols-2 gap-4 slide-in" style="animation-delay: 0.2s;">
+                    <div class="stat-card rounded-2xl p-5 text-center border border-white/5">
+                        <span class="text-3xl font-bold text-indigo-400">250+</span>
+                        <p class="text-xs text-slate-400 mt-1">Employees</p>
+                    </div>
+                    <div class="stat-card rounded-2xl p-5 text-center border border-white/5">
+                        <span class="text-3xl font-bold text-indigo-400">99.9%</span>
+                        <p class="text-xs text-slate-400 mt-1">Uptime Guarantee</p>
+                    </div>
+                    <div class="stat-card rounded-2xl p-5 text-center border border-white/5">
+                        <span class="text-3xl font-bold text-indigo-400">10+</span>
+                        <p class="text-xs text-slate-400 mt-1">Years Experience</p>
+                    </div>
+                    <div class="stat-card rounded-2xl p-5 text-center border border-white/5">
+                        <span class="text-3xl font-bold text-indigo-400">50+</span>
+                        <p class="text-xs text-slate-400 mt-1">Enterprise Clients</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--  ABOUT SECTION  -->
+    <!-- ============================================================ -->
+    <section id="about" class="py-16 bg-[#0b1120] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-500/20">About Us</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-4">Securing Enterprises Across Africa</h2>
+                <p class="text-slate-300 mt-4 leading-relaxed">
+                    ABC Technologies is a leading cybersecurity firm headquartered in Accra, Ghana,
+                    with a branch office in Kumasi. We specialize in protecting critical infrastructure,
+                    financial systems, and sensitive data from evolving cyber threats.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
+                <div class="bg-[#131c2e] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold text-lg">Mission</h3>
+                    <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                        To protect organizations from cyber threats through innovative security
+                        solutions, continuous monitoring, and expert incident response.
+                    </p>
+                </div>
+                <div class="bg-[#131c2e] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold text-lg">Vision</h3>
+                    <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                        To become the most trusted cybersecurity partner in Africa, empowering
+                        organizations to operate securely in a digital-first world.
+                    </p>
+                </div>
+                <div class="bg-[#131c2e] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold text-lg">Values</h3>
+                    <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                        Integrity, innovation, client-centricity, and excellence in every
+                        security solution we deliver.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--  SERVICES SECTION  -->
+    <!-- ============================================================ -->
+    <section id="services" class="py-16 bg-[#131c2e] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-500/20">Our Services</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-4">Enterprise-Grade Security Solutions</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+                <!-- Service 1 -->
+                <div class="bg-[#0b1120] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold">Managed SOC</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        24/7 security monitoring, threat detection, and incident response
+                        powered by Splunk and Suricata.
+                    </p>
+                    <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">Learn more →</span>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-[#0b1120] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold">Threat Intelligence</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Proactive threat hunting, IOC identification, and MITRE ATT&amp;CK
+                        mapping to stay ahead of adversaries.
+                    </p>
+                    <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">Learn more →</span>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-[#0b1120] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold">Security Audits</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Comprehensive risk assessments, vulnerability scanning, and NIST/ISO
+                        compliance audits for your organization.
+                    </p>
+                    <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">Learn more →</span>
+                </div>
+                <!-- Service 4 -->
+                <div class="bg-[#0b1120] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold">Incident Response</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Rapid containment, eradication, and recovery services aligned with
+                        the NIST framework.
+                    </p>
+                    <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">Learn more →</span>
+                </div>
+                <!-- Service 5 -->
+                <div class="bg-[#0b1120] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold">Penetration Testing</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Ethical hacking, vulnerability assessment, and red team exercises
+                        to identify security gaps.
+                    </p>
+                    <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">Learn more →</span>
+                </div>
+                <!-- Service 6 -->
+                <div class="bg-[#0b1120] rounded-2xl p-6 border border-white/5 card-glow">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h3 class="text-white font-bold">Security Training</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        Employee awareness programs, phishing simulations, and cybersecurity
+                        workshops for your team.
+                    </p>
+                    <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">Learn more →</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--  CONTACT SECTION  -->
+    <!-- ============================================================ -->
+    <section id="contact" class="py-16 bg-[#0b1120] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-500/20">Contact</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mt-4">Get in Touch</h2>
+                    <p class="text-slate-300 mt-4 leading-relaxed max-w-md">
+                        Have a security concern? Need a consultation? Reach out to our team
+                        of experts. We're here to help protect your organization.
+                    </p>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-start gap-4 text-sm">
+                            <span class="text-indigo-400 mt-0.5">📍</span>
+                            <div>
+                                <p class="text-white font-medium">Head Office</p>
+                                <p class="text-slate-400">123 Independence Avenue, Accra, Ghana</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 text-sm">
+                            <span class="text-indigo-400 mt-0.5">📍</span>
+                            <div>
+                                <p class="text-white font-medium">Branch Office</p>
+                                <p class="text-slate-400">45 Ashanti Road, Kumasi, Ghana</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 text-sm">
+                            <span class="text-indigo-400 mt-0.5">📧</span>
+                            <div>
+                                <p class="text-white font-medium">Email</p>
+                                <p class="text-slate-400">security@abctechnologies.gh</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 text-sm">
+                            <span class="text-indigo-400 mt-0.5">📞</span>
+                            <div>
+                                <p class="text-white font-medium">Phone</p>
+                                <p class="text-slate-400">+233 30 123 4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#131c2e] rounded-2xl p-6 md:p-8 border border-white/5">
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-300 font-medium mb-1.5">Full Name</label>
+                            <input type="text" placeholder="Your name" class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus" />
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 font-medium mb-1.5">Email Address</label>
+                            <input type="email" placeholder="you@company.com" class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus" />
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 font-medium mb-1.5">Message</label>
+                            <textarea rows="4" placeholder="How can we help you?" class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 border border-indigo-400/30">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!--  LOGIN MODAL  -->
+    <!-- ============================================================ -->
+    <div id="loginModal" class="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/70 backdrop-blur-sm hidden transition-all duration-300">
+        <div class="bg-[#131c2e] rounded-2xl border border-white/10 max-w-md w-full p-8 relative shadow-2xl shadow-indigo-500/10 slide-in" style="animation-duration: 0.4s;">
+            <!-- Close -->
+            <button onclick="hideLoginModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <!-- Logo -->
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                    <span class="text-indigo-400 font-extrabold text-sm">ABC</span>
+                </div>
+                <span class="text-white font-bold text-lg">ABC Technologies</span>
+            </div>
+
+            <h3 class="text-white text-xl font-bold">Employee Portal</h3>
+            <p class="text-slate-400 text-sm mt-1">Sign in to access your dashboard and security tools.</p>
+
+            <form class="mt-6 space-y-4" onsubmit="handleLogin(event)">
+                <div>
+                    <label class="block text-sm text-slate-300 font-medium mb-1.5">Employee ID / Email</label>
+                    <input type="text" id="loginEmail" placeholder="john.doe@abctechnologies.gh" class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus" value="analyst@abctechnologies.gh" />
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-300 font-medium mb-1.5">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus" value="password123" />
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <label class="flex items-center gap-2 text-slate-400">
+                        <input type="checkbox" class="accent-indigo-500" checked />
+                        Remember me
+                    </label>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 transition-colors">Forgot password?</a>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 border border-indigo-400/30">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="text-center text-xs text-slate-500 mt-6">
+                <span class="block">Demo credentials: <span class="text-slate-300 font-mono">analyst@abctechnologies.gh</span> / <span class="text-slate-300 font-mono">password123</span></span>
+                <span class="block mt-1 text-slate-600">🔒 All sessions are encrypted and monitored.</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--  DASHBOARD OVERLAY (shown after login)  -->
+    <!-- ============================================================ -->
+    <div id="dashboardOverlay" class="fixed inset-0 z-[200] bg-[#0b1120] hidden overflow-y-auto">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Dashboard Header -->
+            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-white/5 pb-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                        <span class="text-indigo-400 font-extrabold text-sm">ABC</span>
+                    </div>
+                    <div>
+                        <h2 class="text-white font-bold text-xl">Security Dashboard</h2>
+                        <p class="text-slate-400 text-sm">Welcome back, <span class="text-white font-medium">John Doe</span> · Tier 1 SOC Analyst</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="bg-[#131c2e] rounded-xl p-4 border border-white/5">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">Alerts (24h)</p>
+                    <p class="text-2xl font-bold text-white mt-1">14</p>
+                    <span class="text-xs text-yellow-400">↑ 3 critical</span>
+                </div>
+                <div class="bg-[#131c2e] rounded-xl p-4 border border-white/5">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">Open Incidents</p>
+                    <p class="text-2xl font-bold text-white mt-1">2</p>
+                    <span class="text-xs text-emerald-400">↓ 1 resolved</span>
+                </div>
+                <div class="bg-[#131c2e] rounded-xl p-4 border border-white/5">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">Threats Blocked</p>
+                    <p class="text-2xl font-bold text-white mt-1">1,247</p>
+                    <span class="text-xs text-slate-400">Last 7 days</span>
+                </div>
+                <div class="bg-[#131c2e] rounded-xl p-4 border border-white/5">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">System Health</p>
+                    <p class="text-2xl font-bold text-emerald-400 mt-1">98%</p>
+                    <span class="text-xs text-slate-400">All services operational</span>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="mt-8 bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                <h4 class="text-white font-semibold flex items-center gap-2">
+                    <span>🕒</span> Recent Security Events
+                </h4>
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-sm">
+                        <thead class="text-slate-400 text-xs uppercase tracking-wider border-b border-white/5">
+                            <tr>
+                                <th class="text-left py-3 px-2">Time</th>
+                                <th class="text-left py-3 px-2">Event</th>
+                                <th class="text-left py-3 px-2">Source</th>
+                                <th class="text-left py-3 px-2">Severity</th>
+                                <th class="text-left py-3 px-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr class="border-b border-white/5">
+                                <td class="py-3 px-2 text-xs">14:32</td>
+                                <td class="py-3 px-2">Failed SSH Login (×5)</td>
+                                <td class="py-3 px-2 text-xs">10.0.1.45</td>
+                                <td class="py-3 px-2"><span class="bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-full text-xs">Medium</span></td>
+                                <td class="py-3 px-2"><span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full text-xs">Investigating</span></td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="py-3 px-2 text-xs">13:15</td>
+                                <td class="py-3 px-2">Port Scan Detected</td>
+                                <td class="py-3 px-2 text-xs">10.0.2.12</td>
+                                <td class="py-3 px-2"><span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full text-xs">High</span></td>
+                                <td class="py-3 px-2"><span class="bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full text-xs">Resolved</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-2 text-xs">11:02</td>
+                                <td class="py-3 px-2">Malware Blocked (EICAR)</td>
+                                <td class="py-3 px-2 text-xs">endpoint-07</td>
+                                <td class="py-3 px-2"><span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full text-xs">Critical</span></td>
+                                <td class="py-3 px-2"><span class="bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full text-xs">Contained</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="mt-6 grid sm:grid-cols-3 gap-4">
+                <button class="bg-[#131c2e] border border-white/5 rounded-xl p-4 text-left hover:border-indigo-500/30 transition-all">
+                    <span class="text-indigo-400 text-xl">📊</span>
+                    <p class="text-white font-medium text-sm mt-1">View SIEM Dashboard</p>
+                    <p class="text-slate-500 text-xs">Splunk analytics</p>
+                </button>
+                <button class="bg-[#131c2e] border border-white/5 rounded-xl p-4 text-left hover:border-indigo-500/30 transition-all">
+                    <span class="text-indigo-400 text-xl">🔍</span>
+                    <p class="text-white font-medium text-sm mt-1">Threat Hunting</p>
+                    <p class="text-slate-500 text-xs">IOC search</p>
+                </button>
+                <button class="bg-[#131c2e] border border-white/5 rounded-xl p-4 text-left hover:border-indigo-500/30 transition-all">
+                    <span class="text-indigo-400 text-xl">📋</span>
+                    <p class="text-white font-medium text-sm mt-1">Incident Response</p>
+                    <p class="text-slate-500 text-xs">NIST playbooks</p>
+                </button>
+            </div>
+
+            <p class="text-center text-xs text-slate-500 mt-8 border-t border-white/5 pt-6">
+                🔒 ABC Technologies · Enterprise Security Operations Center · v2.4.1
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--  FOOTER  -->
+    <!-- ============================================================ -->
+    <footer class="border-t border-white/5 bg-[#0b1120]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                            <span class="text-indigo-400 font-extrabold text-xs">ABC</span>
+                        </div>
+                        <span class="text-white font-bold">ABC Technologies</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                        Enterprise-grade cybersecurity solutions for organizations across Africa.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold text-sm">Company</h5>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Leadership</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">News</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold text-sm">Services</h5>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Managed SOC</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Threat Intelligence</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Security Audits</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Incident Response</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-semibold text-sm">Connect</h5>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">security@abctechnologies.gh</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">+233 30 123 4567</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Accra, Ghana</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Kumasi, Ghana</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <span>© 2026 ABC Technologies Ltd. All rights reserved. Secured by ABC SOC.</span>
+                <div class="flex gap-4">
+                    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 24/7 Monitoring</span>
+                    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> NIST Compliant</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!--  JAVASCRIPT  -->
+    <!-- ============================================================ -->
+    <script>
+        // Login Modal
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) hideLoginModal();
+        });
+
+        // Handle Login
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (email && password) {
+                hideLoginModal();
+                document.getElementById('dashboardOverlay').classList.remove('hidden');
+                document.body.style.overflow = 'auto';
+            } else {
+                alert('Please enter your credentials.');
+            }
+        }
+
+        // Logout
+        function logout() {
+            document.getElementById('dashboardOverlay').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close dashboard on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (!document.getElementById('dashboardOverlay').classList.contains('hidden')) {
+                    logout();
+                }
+                if (!document.getElementById('loginModal').classList.contains('hidden')) {
+                    hideLoginModal();
+                }
+            }
+        });
+
+        // Close login modal with Escape (handled above)
+    </script>
+
+</body>
+</html>

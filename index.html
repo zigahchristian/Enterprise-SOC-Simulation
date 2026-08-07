@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capstone Projects · Google Cybersecurity Certificate</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap');
+
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .gradient-hero {
+            background: linear-gradient(145deg, #0b1120 0%, #1a2639 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .badge-glow {
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
+        }
+
+        .phase-timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 0;
+            bottom: 0;
+            width: 2.5px;
+            background: linear-gradient(to bottom, #4f46e5, #7c3aed, #4f46e5);
+            opacity: 0.4;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+        }
+
+        .repo-tree {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.9;
+            color: #e2e8f0;
+            overflow-x: auto;
+        }
+        .repo-tree .dir {
+            color: #60a5fa;
+        }
+        .repo-tree .file {
+            color: #a78bfa;
+        }
+        .repo-tree .comment {
+            color: #64748b;
+        }
+
+        .slide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .pill-skill {
+            background: rgba(79, 70, 229, 0.12);
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            color: #c7d2fe;
+            padding: 0.2rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        ::selection {
+            background: #4f46e5;
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 8px;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.5rem;
+        }
+        .tech-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            color: #c7d2fe;
+            text-align: center;
+        }
+
+        .deliverable-list {
+            columns: 2 180px;
+            column-gap: 1.5rem;
+        }
+        .deliverable-list li {
+            break-inside: avoid;
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 640px) {
+            .deliverable-list {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0b1120] text-slate-200 antialiased">
+
+    <!-- ===== HERO ===== -->
+    <header class="gradient-hero border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-300 text-xs font-semibold px-4 py-1.5 rounded-full border border-indigo-500/20 mb-4">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                        Google Cybersecurity Professional Certificate
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Capstone Projects
+                        <span class="block text-indigo-400 mt-1">Portfolio-Worthy &amp; Employer-Approved</span>
+                    </h1>
+                    <p class="mt-4 text-slate-300 max-w-2xl text-lg leading-relaxed">
+                        Demonstrate mastery across Linux, SQL, Python, networking, SIEM, IDS/IPS,
+                        incident response, risk management, and security auditing.
+                    </p>
+                    <div class="flex flex-wrap gap-3 mt-6">
+                        <span class="pill-skill">Linux</span>
+                        <span class="pill-skill">SQL</span>
+                        <span class="pill-skill">Python</span>
+                        <span class="pill-skill">Splunk</span>
+                        <span class="pill-skill">Suricata</span>
+                        <span class="pill-skill">Wireshark</span>
+                        <span class="pill-skill">MITRE ATT&amp;CK</span>
+                        <span class="pill-skill">NIST</span>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 flex items-center gap-4 text-sm bg-black/30 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/5">
+                    <div class="flex flex-col items-center">
+                        <span class="text-3xl font-bold text-indigo-400">#1</span>
+                        <span class="text-xs text-slate-400">Overall</span>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <span class="font-semibold text-white">5.0</span>
+                            <span class="text-slate-400 text-xs">(3 projects)</span>
+                        </div>
+                        <div class="text-xs text-slate-400 mt-0.5">⭐ 5/5 · best overall</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+  
+
+    <!-- ===== PROJECT #1 — FULL DETAILS ===== -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <!-- Title & Badge -->
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-8">
+            <div>
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🏢</span>
+                    <h2 class="text-3xl font-bold text-white">Enterprise SOC Simulation</h2>
+                    <span class="bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full border border-indigo-500/20">Capstone #1</span>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">Enterprise Security Monitoring and Incident Response Simulation using Splunk, Suricata, Wireshark, Linux, Python and MITRE ATT&amp;CK Framework</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-sm">
+                <div class="bg-[#131c2e] rounded-xl px-4 py-2.5 border border-white/5">
+                    <span class="block text-xs text-slate-400">Role</span>
+                    <span class="font-medium text-white">Tier 1 SOC Analyst</span>
+                </div>
+                <div class="bg-[#131c2e] rounded-xl px-4 py-2.5 border border-white/5">
+                    <span class="block text-xs text-slate-400">Framework</span>
+                    <span class="font-medium text-white">NIST · MITRE</span>
+                </div>
+                <div class="bg-[#131c2e] rounded-xl px-4 py-2.5 border border-white/5">
+                    <span class="block text-xs text-slate-400">Duration</span>
+                    <span class="font-medium text-white">4–6 weeks</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. Executive Summary -->
+        <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6 md:p-8">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <span class="text-indigo-400">📋</span> 1. Executive Summary
+            </h3>
+            <p class="text-slate-300 mt-3 leading-relaxed max-w-4xl">
+                This capstone project simulates the work of a Tier 1 Security Operations Center (SOC) Analyst responsible for protecting a medium-sized enterprise from cyber threats. The project demonstrates how security professionals collect logs, detect attacks, investigate malicious activities, respond to incidents, and recommend security improvements.
+            </p>
+            <p class="text-slate-300 mt-3 leading-relaxed max-w-4xl">
+                The simulation follows the complete <span class="text-white font-medium">Cybersecurity Incident Response Lifecycle</span>:
+            </p>
+            <div class="flex flex-wrap gap-3 mt-3">
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Preparation</span>
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Detection</span>
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Analysis</span>
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Containment</span>
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Eradication</span>
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Recovery</span>
+                <span class="bg-[#0b1120] px-4 py-1.5 rounded-full border border-white/5 text-sm text-slate-300">Lessons Learned</span>
+            </div>
+        </div>
+
+        <!-- 2. Company Background + 3. Business Problem -->
+        <div class="mt-6 grid md:grid-cols-2 gap-6">
+            <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                    <span>🏛️</span> 2. Company Background
+                </h4>
+                <div class="mt-3 space-y-1.5 text-sm text-slate-300">
+                    <p><span class="text-slate-400">Organization</span> <span class="text-white font-medium">ABC Technologies Ltd.</span></p>
+                    <p><span class="text-slate-400">Industry</span> Information Technology Services</p>
+                    <p><span class="text-slate-400">Employees</span> 250</p>
+                    <p><span class="text-slate-400">Locations</span> Head Office: Accra, Ghana · Branch: Kumasi</p>
+                    <p><span class="text-slate-400">Departments</span> HR, Finance, Sales, IT, Customer Support</p>
+                    <div class="mt-3 pt-3 border-t border-white/5">
+                        <p class="text-slate-400 text-xs uppercase tracking-wider">Critical Assets</p>
+                        <div class="flex flex-wrap gap-2 mt-1.5">
+                            <span class="pill-skill">Employee Database</span>
+                            <span class="pill-skill">Payroll System</span>
+                            <span class="pill-skill">Company Website</span>
+                            <span class="pill-skill">Email Server</span>
+                            <span class="pill-skill">Financial Records</span>
+                            <span class="pill-skill">Customer Database</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                    <span>⚠️</span> 3. Business Problem
+                </h4>
+                <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+                    The IT department has received multiple security alerts including:
+                </p>
+                <ul class="mt-2 space-y-1.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-red-400 mt-0.5">▹</span> Failed login attempts</li>
+                    <li class="flex items-start gap-2.5"><span class="text-red-400 mt-0.5">▹</span> Malware detection</li>
+                    <li class="flex items-start gap-2.5"><span class="text-red-400 mt-0.5">▹</span> Suspicious outbound traffic</li>
+                    <li class="flex items-start gap-2.5"><span class="text-red-400 mt-0.5">▹</span> Unauthorized USB devices</li>
+                    <li class="flex items-start gap-2.5"><span class="text-red-400 mt-0.5">▹</span> Possible data exfiltration</li>
+                </ul>
+                <p class="text-sm text-slate-300 mt-3 font-medium text-white/80">Management requests an immediate investigation.</p>
+            </div>
+        </div>
+
+        <!-- 4. Project Objectives + 5. Learning Outcomes -->
+        <div class="mt-6 grid md:grid-cols-2 gap-6">
+            <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                    <span>🎯</span> 4. Project Objectives
+                </h4>
+                <ul class="mt-3 space-y-1.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Build a virtual SOC</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Collect logs</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Monitor attacks</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Analyze suspicious traffic</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Detect malware</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Investigate incidents</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Respond professionally</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">✔</span> Produce management reports</li>
+                </ul>
+            </div>
+            <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                    <span>📚</span> 5. Learning Outcomes
+                </h4>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="pill-skill">Linux Administration</span>
+                    <span class="pill-skill">Security Monitoring</span>
+                    <span class="pill-skill">SIEM Operations</span>
+                    <span class="pill-skill">Network Traffic Analysis</span>
+                    <span class="pill-skill">Python Automation</span>
+                    <span class="pill-skill">SQL Investigation</span>
+                    <span class="pill-skill">Risk Assessment</span>
+                    <span class="pill-skill">Security Documentation</span>
+                    <span class="pill-skill">Threat Hunting</span>
+                    <span class="pill-skill">Incident Response</span>
+                    <span class="pill-skill">Report Writing</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Technologies Used -->
+        <div class="mt-6 bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+            <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                <span>🧰</span> 6. Technologies Used
+            </h4>
+            <div class="tech-grid mt-3">
+                <div class="tech-item">Ubuntu Server</div>
+                <div class="tech-item">Kali Linux</div>
+                <div class="tech-item">Windows 11</div>
+                <div class="tech-item">VmWare</div>
+                <div class="tech-item">Pfsense</div>
+                <div class="tech-item">Splunk Enterprise Free</div>
+                <div class="tech-item">Suricata</div>
+                <div class="tech-item">Wireshark</div>
+                <div class="tech-item">Nmap</div>
+                <div class="tech-item">Hydra</div>
+                <div class="tech-item">Linux Syslog</div>
+                <div class="tech-item">Python</div>
+                <div class="tech-item">SQLite</div>
+                <div class="tech-item">Git</div>
+                <div class="tech-item">GitHub</div>
+                <div class="tech-item">Markdown</div>
+                <div class="tech-item">Draw.io</div>
+                <div class="tech-item">Snipping Tool</div>
+            </div>
+        </div>
+
+        <!-- 7. Virtual Lab Architecture -->
+        <div class="mt-6 bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+            <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                <span>🏗️</span> 7. Virtual Lab Architecture
+            </h4>
+            <div class="mt-4 bg-[#0b1120] rounded-xl p-5 md:p-6 font-mono text-sm text-slate-300 border border-white/5 overflow-x-auto">
+                <pre class="whitespace-pre-wrap">                    <span class="text-slate-500">Internet</span>
+                        |
+                 <span class="text-indigo-300">Pfsense Router</span>
+                        |
+              <span class="text-slate-400">─────────────────────</span>
+              |                   |
+          <span class="text-emerald-400">Kali Linux</span>         <span class="text-sky-400">Ubuntu Server</span>
+          <span class="text-slate-500">Attacker</span>           <span class="text-slate-500">Splunk Server</span>
+                                  |
+                            <span class="text-yellow-400">Suricata IDS</span>
+                                  |
+                          <span class="text-yellow-400">Windows 11 Victim</span></pre>
+                <p class="text-xs text-slate-500 mt-3">↳ All VMs connected via internal network · Splunk receives logs from Ubuntu &amp; Windows</p>
+            </div>
+        </div>
+
+        <!-- 8. Project Phases (14) -->
+        <div class="mt-10">
+            <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                <span>📌</span> 8. Project Phases
+                <span class="ml-auto text-sm font-normal text-slate-400 bg-white/5 px-4 py-1.5 rounded-full border border-white/5">14 phases · step-by-step</span>
+            </h3>
+            <div class="relative pl-10 mt-6 phase-timeline space-y-4">
+
+                <!-- Phase 1 -->
+                <div class="relative">
+                    <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">1</div>
+                    <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                        <h5 class="text-white font-semibold">Project Planning</h5>
+                        <p class="text-sm text-slate-300 mt-0.5">Project Charter · Scope · Objectives · Timeline · Risk Register</p>
+                    </div>
+                </div>
+                <!-- Phase 2 -->
+                <div class="relative">
+                    <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">2</div>
+                    <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                        <h5 class="text-white font-semibold">Environment Setup</h5>
+                        <p class="text-sm text-slate-300 mt-0.5">Install Ubuntu, Windows, Kali, Splunk, Suricata, Wireshark, Git, Python · Verify communication</p>
+                        <p class="text-xs text-slate-500 mt-1">Documentation: Installation Guide · Screenshots · Network Diagram</p>
+                    </div>
+                </div>
+                <!-- Phase 3 -->
+                <div class="relative">
+                    <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">3</div>
+                    <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                        <h5 class="text-white font-semibold">Asset Inventory</h5>
+                        <p class="text-sm text-slate-300 mt-0.5">Create inventory with Owner &amp; Criticality</p>
+                        <div class="mt-2 overflow-x-auto text-xs">
+                            <table class="w-full max-w-md text-slate-300">
+                                <thead class="text-slate-400 border-b border-white/5"><tr><th class="text-left py-1 pr-4">Asset</th><th class="text-left py-1 pr-4">Owner</th><th class="text-left py-1">Criticality</th></tr></thead>
+                                <tbody><tr><td class="py-0.5">Payroll Server</td><td>Finance</td><td class="text-red-400">High</td></tr>
+                                    <tr><td class="py-0.5">Employee Database</td><td>HR</td><td class="text-red-400">High</td></tr>
+                                    <tr><td class="py-0.5">Website</td><td>IT</td><td class="text-yellow-400">Medium</td></tr>
+                                    <tr><td class="py-0.5">Email</td><td>IT</td><td class="text-red-400">High</td></tr>
+                                </tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Phase 4 -->
+                    <div class="relative">
+                        <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">4</div>
+                        <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                            <h5 class="text-white font-semibold">Risk Assessment</h5>
+                            <p class="text-sm text-slate-300 mt-0.5">Asset · Threat · Vulnerability · Likelihood · Impact · Risk Rating</p>
+                            <div class="mt-2 overflow-x-auto text-xs">
+                                <table class="w-full max-w-md text-slate-300">
+                                    <thead class="text-slate-400 border-b border-white/5"><tr><th class="text-left py-1 pr-4">Asset</th><th class="text-left py-1 pr-4">Threat</th><th class="text-left py-1">Risk</th></tr></thead>
+                                    <tbody><tr><td class="py-0.5">Payroll</td><td>Ransomware</td><td class="text-red-400">High</td></tr>
+                                        <tr><td class="py-0.5">Email</td><td>Phishing</td><td class="text-red-400">High</td></tr>
+                                        <tr><td class="py-0.5">Website</td><td>SQL Injection</td><td class="text-yellow-400">Medium</td></tr>
+                                    </tbody></table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phase 5 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">5</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">Log Collection</h5>
+                                <p class="text-sm text-slate-300 mt-0.5">Authentication logs · System logs · Windows Event Logs · Network logs · IDS alerts · Firewall logs</p>
+                            </div>
+                        </div>
+                        <!-- Phase 6 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">6</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">Attack Simulation <span class="text-xs text-slate-400 font-normal">(Kali)</span></h5>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="pill-skill">Hydra · Brute Force</span>
+                                    <span class="pill-skill">Nmap · Port Scanning</span>
+                                    <span class="pill-skill">EICAR · Malware</span>
+                                    <span class="pill-skill">Ping Sweep</span>
+                                    <span class="pill-skill">SSH Login Attempts</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phase 7 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">7</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">SIEM Monitoring <span class="text-xs text-slate-400 font-normal">(Splunk)</span></h5>
+                                <p class="text-sm text-slate-300 mt-0.5">Dashboards for: Authentication failures · Successful logins · Network traffic · Malware alerts · Top IPs · User activity</p>
+                            </div>
+                        </div>
+                        <!-- Phase 8 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">8</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">Packet Analysis <span class="text-xs text-slate-400 font-normal">(Wireshark)</span></h5>
+                                <p class="text-sm text-slate-300 mt-0.5">TCP · UDP · HTTP · HTTPS · DNS · ICMP — Identify scanning, data transfer, suspicious traffic, credentials</p>
+                            </div>
+                        </div>
+                        <!-- Phase 9 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">9</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">Threat Hunting</h5>
+                                <p class="text-sm text-slate-300 mt-0.5">Repeated login failures · Known malicious IPs · Unusual processes · Suspicious PowerShell · Large downloads · Unknown executables</p>
+                            </div>
+                        </div>
+                        <!-- Phase 10 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">10</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">Python Automation</h5>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="pill-skill">Failed Login Analyzer</span>
+                                    <span class="pill-skill">Log Parser</span>
+                                    <span class="pill-skill">IOC Extractor</span>
+                                    <span class="pill-skill">CSV Report Generator</span>
+                                    <span class="pill-skill">Email Alert Generator</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phase 11 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">11</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">SQL Investigation</h5>
+                                <p class="text-sm text-slate-300 mt-0.5">Create SQLite database with Alerts, Logs, Users · Queries for high-severity alerts</p>
+                                <div class="mt-2 bg-[#0b1120] rounded-lg px-3 py-2 font-mono text-xs text-slate-300 border border-white/5 overflow-x-auto">
+                                    <span class="text-indigo-400">SELECT</span> * <span class="text-indigo-400">FROM</span> alerts <span class="text-indigo-400">WHERE</span> severity=<span class="text-green-400">'High'</span>;
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phase 12 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">12</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">Incident Response <span class="text-xs text-slate-400 font-normal">(NIST Framework)</span></h5>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="pill-skill">Preparation</span>
+                                    <span class="pill-skill">Detection</span>
+                                    <span class="pill-skill">Analysis</span>
+                                    <span class="pill-skill">Containment</span>
+                                    <span class="pill-skill">Eradication</span>
+                                    <span class="pill-skill">Recovery</span>
+                                    <span class="pill-skill">Lessons Learned</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phase 13 -->
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">13</div>
+                            <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                <h5 class="text-white font-semibold">MITRE ATT&amp;CK Mapping</h5>
+                                <div class="mt-1 overflow-x-auto text-xs">
+                                    <table class="w-full max-w-sm text-slate-300">
+                                        <thead class="text-slate-400 border-b border-white/5"><tr><th class="text-left py-1 pr-4">Attack</th><th class="text-left py-1">Technique</th></tr></thead>
+                                        <tbody><tr><td class="py-0.5">Password Attack</td><td class="text-indigo-300">T1110</td></tr>
+                                            <tr><td class="py-0.5">Port Scan</td><td class="text-indigo-300">Discovery</td></tr>
+                                            <tr><td class="py-0.5">Malware</td><td class="text-indigo-300">T1204</td></tr>
+                                            <tr><td class="py-0.5">Credential Access</td><td class="text-indigo-300">T1003</td></tr>
+                                        </tbody></table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Phase 14 -->
+                            <div class="relative">
+                                <div class="absolute -left-10 top-1 w-7 h-7 rounded-full step-number flex items-center justify-center text-xs font-bold text-white">14</div>
+                                <div class="bg-[#131c2e] rounded-xl border border-white/5 p-4">
+                                    <h5 class="text-white font-semibold">Security Recommendations</h5>
+                                    <div class="flex flex-wrap gap-2 mt-1">
+                                        <span class="pill-skill">Enable MFA</span>
+                                        <span class="pill-skill">Strong Passwords</span>
+                                        <span class="pill-skill">Patch Systems</span>
+                                        <span class="pill-skill">Least Privilege</span>
+                                        <span class="pill-skill">Disable Unused Services</span>
+                                        <span class="pill-skill">USB Restrictions</span>
+                                        <span class="pill-skill">Email Filtering</span>
+                                        <span class="pill-skill">Regular Backups</span>
+                                        <span class="pill-skill">Awareness Training</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. Expected Deliverables -->
+                    <div class="mt-10 grid md:grid-cols-2 gap-6">
+                        <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                            <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                                <span>📦</span> Technical Deliverables
+                            </h4>
+                            <ul class="deliverable-list mt-3 text-sm text-slate-300">
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Virtual Lab</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Splunk Configuration</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Suricata Rules</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Python Scripts</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> SQL Database</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Wireshark Captures</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Network Diagram</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Screenshots</li>
+                            </ul>
+                        </div>
+                        <div class="bg-[#131c2e] rounded-2xl border border-white/5 p-6">
+                            <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                                <span>📄</span> Documentation
+                            </h4>
+                            <ul class="deliverable-list mt-3 text-sm text-slate-300">
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Project Proposal</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Requirements Specification</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Risk Assessment</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Asset Inventory</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Threat Model</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Incident Report</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Threat Hunting Report</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Packet Analysis Report</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Python &amp; SQL Documentation</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> User / Admin / Deployment Guides</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Lessons Learned</li>
+                                <li class="flex items-start gap-2.5"><span class="text-indigo-400">✔</span> Executive Summary</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 10. GitHub Repository Structure -->
+                    <div class="mt-10">
+                        <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                            <span>🐙</span> 10. GitHub Repository Structure
+                            <span class="ml-auto text-sm font-normal text-slate-400 bg-white/5 px-4 py-1.5 rounded-full border border-white/5">ready to push</span>
+                        </h3>
+                        <div class="repo-tree mt-4">
+                            <div><span class="dir">Enterprise-SOC-Simulation/</span></div>
+                            <div class="pl-5"><span class="file">├── README.md</span></div>
+                            <div class="pl-5"><span class="file">├── LICENSE</span></div>
+                            <div class="pl-5"><span class="file">├── .gitignore</span></div>
+                            <div class="pl-5"><span class="dir">├── documentation/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Project_Proposal.pdf</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Requirements.pdf</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Risk_Assessment.pdf</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Incident_Report.pdf</span></div>
+                            <div class="pl-10"><span class="file">│   └── Final_Report.pdf</span></div>
+                            <div class="pl-5"><span class="dir">├── diagrams/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Network_Diagram.drawio</span></div>
+                            <div class="pl-10"><span class="file">│   └── Architecture.png</span></div>
+                            <div class="pl-5"><span class="dir">├── screenshots/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Splunk/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Wireshark/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Linux/</span></div>
+                            <div class="pl-10"><span class="file">│   └── Suricata/</span></div>
+                            <div class="pl-5"><span class="dir">├── logs/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── auth.log</span></div>
+                            <div class="pl-10"><span class="file">│   ├── syslog</span></div>
+                            <div class="pl-10"><span class="file">│   └── alerts.log</span></div>
+                            <div class="pl-5"><span class="dir">├── pcap/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── attack1.pcap</span></div>
+                            <div class="pl-10"><span class="file">│   └── attack2.pcap</span></div>
+                            <div class="pl-5"><span class="dir">├── python/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── parser.py</span></div>
+                            <div class="pl-10"><span class="file">│   ├── alert.py</span></div>
+                            <div class="pl-10"><span class="file">│   └── report.py</span></div>
+                            <div class="pl-5"><span class="dir">├── sql/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── database.db</span></div>
+                            <div class="pl-10"><span class="file">│   ├── schema.sql</span></div>
+                            <div class="pl-10"><span class="file">│   └── queries.sql</span></div>
+                            <div class="pl-5"><span class="dir">├── reports/</span></div>
+                            <div class="pl-10"><span class="file">│   ├── IOC_Report.pdf</span></div>
+                            <div class="pl-10"><span class="file">│   ├── Executive_Report.pdf</span></div>
+                            <div class="pl-10"><span class="file">│   └── Technical_Report.pdf</span></div>
+                            <div class="pl-5"><span class="dir">└── presentation/</span></div>
+                            <div class="pl-10"><span class="file">    └── Capstone_Presentation.pptx</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 11. Suggested GitHub README -->
+                    <div class="mt-10 bg-[#131c2e] rounded-2xl border border-white/5 p-6 md:p-8">
+                        <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                            <span>📖</span> 11. Suggested GitHub README Structure
+                        </h4>
+                        <div class="flex flex-wrap gap-2 mt-4 text-sm">
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Project Overview</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Features</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Architecture Diagram</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Technologies Used</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Installation Guide</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Virtual Lab Setup</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Screenshots</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Attack Simulation</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">SIEM Dashboard</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Packet Analysis</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Threat Hunting</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Incident Response Process</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">MITRE ATT&amp;CK Mapping</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Project Results</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Lessons Learned</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Future Improvements</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">References</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">License</span>
+                            <span class="bg-[#0b1120] px-4 py-2 rounded-full border border-white/5 text-slate-300">Contact Information</span>
+                        </div>
+                    </div>
+
+                    <!-- 12. Testing Plan -->
+                    <div class="mt-10 bg-[#131c2e] rounded-2xl border border-white/5 overflow-hidden">
+                        <div class="px-6 py-4 border-b border-white/5 bg-white/5">
+                            <h4 class="text-white font-semibold flex items-center gap-2">
+                                <span>🧪</span> 12. Testing Plan
+                            </h4>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-[#0b1120] text-slate-400 text-xs uppercase tracking-wider">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left">Test</th>
+                                        <th class="px-6 py-3 text-left">Expected Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-white/5 text-slate-300">
+                                    <tr><td class="px-6 py-3">Failed SSH Login</td><td class="px-6 py-3">Alert Generated</td></tr>
+                                    <tr><td class="px-6 py-3">Port Scan</td><td class="px-6 py-3">IDS Detects</td></tr>
+                                    <tr><td class="px-6 py-3">Malware File (EICAR)</td><td class="px-6 py-3">Alert Generated</td></tr>
+                                    <tr><td class="px-6 py-3">SQL Query (High Severity)</td><td class="px-6 py-3">Returns Alerts</td></tr>
+                                    <tr><td class="px-6 py-3">Python Parser</td><td class="px-6 py-3">Generates Report</td></tr>
+                                    <tr><td class="px-6 py-3">Splunk Dashboard</td><td class="px-6 py-3">Updates Successfully</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 13. Final Presentation -->
+                    <div class="mt-10 bg-[#131c2e] rounded-2xl border border-white/5 p-6 md:p-8">
+                        <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                            <span>🖥️</span> 13. Final Presentation — 15–20 Slides
+                        </h4>
+                        <div class="slide-grid mt-4">
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Title</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Background</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Objectives</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Problem Statement</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Lab Architecture</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Tools Used</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Methodology</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Attack Simulations</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">SIEM Dashboard</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Wireshark Analysis</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Threat Hunting</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Python Automation</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Incident Response</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Results</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Recommendations</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Lessons Learned</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Future Work</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Conclusion</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">References</span>
+                            <span class="bg-[#0b1120] px-3 py-2 rounded-lg text-center text-sm text-slate-300 border border-white/5">Questions</span>
+                        </div>
+                    </div>
+
+                    <!-- 14. Portfolio & Resume Highlights -->
+                    <div class="mt-10 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl border border-indigo-500/20 p-6 md:p-8">
+                        <h4 class="text-white font-semibold flex items-center gap-2 text-lg">
+                            <span>✨</span> 14. Portfolio &amp; Resume Highlights
+                        </h4>
+                        <p class="text-sm text-slate-300 mt-2">Upon completion, you will have evidence of practical skills in:</p>
+                        <div class="grid sm:grid-cols-2 gap-2 mt-3 text-sm text-slate-300">
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> SOC monitoring &amp; alert triage</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Linux system administration</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Splunk dashboard creation &amp; SIEM analysis</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Suricata IDS rule configuration</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Wireshark packet inspection</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Network reconnaissance &amp; attack simulation</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Threat hunting using Indicators of Compromise (IOCs)</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Incident response aligned with the NIST framework</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> MITRE ATT&amp;CK mapping and adversary analysis</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Python scripting for log parsing &amp; automation</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> SQL-based investigation &amp; reporting</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Git/GitHub version control &amp; collaborative documentation</span>
+                            <span class="flex items-start gap-2.5"><span class="text-indigo-400 mt-0.5">▪</span> Professional cybersecurity documentation &amp; executive reporting</span>
+                        </div>
+                        <p class="mt-4 text-sm text-indigo-200/80 border-t border-indigo-500/20 pt-4">
+                            ⚡ <span class="font-medium text-white">Employer-ready:</span> This project closely mirrors the responsibilities of a Junior SOC Analyst, Cybersecurity Analyst, or Blue Team Analyst — making it an excellent centerpiece for a cybersecurity portfolio and a strong demonstration of the competencies expected from graduates of the Google Cybersecurity Professional Certificate.
+                        </p>
+                    </div>
+
+                    <!-- Bonus Features -->
+                    <div class="mt-6 flex flex-wrap gap-3 items-center bg-[#131c2e] rounded-2xl border border-white/5 p-5 md:p-6">
+                        <span class="text-yellow-400 text-xl">⭐</span>
+                        <span class="text-white font-medium">Bonus Features</span>
+                        <span class="text-slate-400 text-sm">· Automated Python log parser · Email alert simulation · Geo-IP visualization · MITRE ATT&amp;CK mapping</span>
+                    </div>
+
+                </section>
+
+                <!-- ===== FOOTER ===== -->
+                <footer class="border-t border-white/5 bg-[#0b1120]">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-slate-400">
+                            <div class="flex items-center gap-4">
+                                <span class="font-semibold text-white">Google Cybersecurity Professional Certificate</span>
+                                <span class="hidden md:inline text-slate-600">|</span>
+                                <span>Capstone Projects · 2026</span>
+                            </div>
+                            <div class="flex items-center gap-5">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                                    <span class="text-slate-300">portfolio-ready</span>
+                                </span>
+                                <span>🐙 GitHub · <span class="text-indigo-300">Enterprise-SOC-Simulation</span></span>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-xs text-slate-500/70 border-t border-white/5 pt-5 flex flex-wrap gap-4">
+                            <span>Skills: Linux · SQL · Python · Splunk · Suricata · Wireshark · NIST · MITRE ATT&amp;CK</span>
+                            <span>· 14 phases · 15+ deliverables · 20-slide presentation</span>
+                        </div>
+                    </div>
+                </footer>
+
+            </body>
+            </html>

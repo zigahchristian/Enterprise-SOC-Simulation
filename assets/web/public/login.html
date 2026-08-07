@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In · ABC Technologies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        .login-bg {
+            background: radial-gradient(ellipse at 70% 30%, #1e293b 0%, #0b1120 100%);
+        }
+        .input-focus:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+            outline: none;
+        }
+        .slide-in {
+            animation: slideUp 0.6s ease forwards;
+        }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="login-bg min-h-screen flex items-center justify-center px-4">
+
+    <div class="w-full max-w-md slide-in">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center gap-3 bg-[#131c2e] px-6 py-3 rounded-2xl border border-white/5">
+                <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                    <span class="text-indigo-400 font-extrabold text-sm">ABC</span>
+                </div>
+                <span class="text-white font-bold text-lg">ABC Technologies</span>
+            </div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="bg-[#131c2e] rounded-2xl border border-white/10 p-8 shadow-2xl shadow-indigo-500/10">
+            <h2 class="text-white text-2xl font-bold">Welcome Back</h2>
+            <p class="text-slate-400 text-sm mt-1">Sign in to access your security dashboard</p>
+
+            <form id="loginForm" class="mt-6 space-y-4">
+                <div id="errorMessage" class="hidden bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-2 rounded-lg"></div>
+
+                <div>
+                    <label class="block text-sm text-slate-300 font-medium mb-1.5">Username or Email</label>
+                    <input type="text" id="username" placeholder="Enter your username or email" 
+                           class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus" />
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-300 font-medium mb-1.5">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" 
+                           class="w-full bg-[#0b1120] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 input-focus" />
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <label class="flex items-center gap-2 text-slate-400">
+                        <input type="checkbox" id="rememberMe" class="accent-indigo-500" />
+                        Remember me
+                    </label>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 transition-colors">Forgot password?</a>
+                </div>
+                <button type="submit" id="loginBtn" 
+                        class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 border border-indigo-400/30 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="text-center text-xs text-slate-500 mt-6">
+                <span class="block">Demo: <span class="text-slate-300 font-mono">admin</span> / <span class="text-slate-300 font-mono">Admin@123</span></span>
+                <span class="block mt-1 text-slate-600">🔒 All sessions are encrypted and monitored.</span>
+            </p>
+
+            <p class="text-center text-sm text-slate-400 mt-4">
+                Don't have an account? <a href="/signup.html" class="text-indigo-400 hover:text-indigo-300 transition-colors font-medium">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorDiv = document.getElementById('errorMessage');
+        const loginBtn = document.getElementById('loginBtn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Validate input
+            if (!username || !password) {
+                showError('Please enter both username and password.');
+                return;
+            }
+
+            // Disable button and show loading state
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+            hideError();
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store user info in session storage (not localStorage for security)
+                    sessionStorage.setItem('user', JSON.stringify(data.user));
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    
+                    // Redirect to dashboard
+                    window.location.href = '/dashboard.html';
+                } else {
+                    showError(data.error || 'Login failed. Please try again.');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Sign In';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Network error. Please check your connection.');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
+            }
+        });
+
+        function showError(message) {
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function hideError() {
+            errorDiv.classList.add('hidden');
+        }
+
+        // Auto-fill demo credentials (optional)
+        document.getElementById('username').value = 'admin';
+        document.getElementById('password').value = 'Admin@123';
+    </script>
+</body>
+</html>

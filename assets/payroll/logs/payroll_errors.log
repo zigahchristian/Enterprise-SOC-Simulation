@@ -1,0 +1,14 @@
+2026-08-07 09:43:32,381 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:43:32,381 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:44:10,597 - ERROR - 127.0.0.1 - POST /api/payroll/process - 400 - 2.48ms
+2026-08-07 09:44:10,597 - ERROR - 127.0.0.1 - POST /api/payroll/process - 400 - 2.48ms
+2026-08-07 09:44:36,247 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:44:36,247 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:52:34,436 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:52:34,436 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:55:21,229 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:55:21,229 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:55:49,078 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 09:55:49,078 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 10:03:35,321 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
+2026-08-07 10:03:35,321 - ERROR - Request failed: POST /api/salary - Error binding parameter 2 - probably unsupported type.
