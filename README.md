@@ -106,9 +106,9 @@ Management has requested a full security investigation.
 - Nmap
 - Hydra
 - Python
-- SQLite
+- MySQL
 - Git & GitHub
-- Draw.io
+- VSCode
 - Markdown
 
 ---
@@ -116,18 +116,20 @@ Management has requested a full security investigation.
 ## 🏗️ Virtual Lab Architecture
 
 ```text
-                    Internet
-                        |
-                    Pfsense Router
-                        |
-              ---------------------
-              |                   |
-          Kali Linux         Ubuntu Server
-          (Attacker)         (Splunk Server)
+                               Internet
                                   |
-                            Suricata IDS
                                   |
-                          Windows 11 Victim
+                          pfSense (Router)
+                                  |
+                                  |
+              ---------------------------------------
+              |                   |                 |
+              |                   |                 |    
+              |                 (SOC)               |
+          Kali Linux         Ubuntu Server      Windows 10
+          (Attacker)         (Splunk Server)     (Victim)
+                                  |
+                             Suricata IDS
 ```
 
 ---
@@ -412,3 +414,4 @@ MIT License
 **Christian Zigah**  
 Cybersecurity & IT Professional  
 Accra, Ghana
+# Enterprise-SOC-Simulation
